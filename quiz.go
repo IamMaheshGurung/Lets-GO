@@ -1,59 +1,56 @@
 package main
 
 import (
-	"fmt"
-	"math/rand"
-	"time"
+    "fmt"
 )
-
-var pl = fmt.Println
+       
 var sf = fmt.Scanf
 
-type Detail struct {
-	Name    string
-	Age     int
-	Country string
-	Code    int
-}
+local lsp_zero = require('lsp-zero')
 
-func main() {
-	rand.Seed(time.Now().UnixNano())
-	var name1 string
-	var age int
-	var country string
-	var response string
-	var files []Detail
+lsp_zero.on_attach(function(client, bufnr)
+  -- see :help lsp-zero-keybindings
+  -- to learn the available actions
+  lsp_zero.default_keymaps({buffer = bufnr})
+end)
 
-	for {
-		pl("Please Fill Detail")
-		pl("What is your Name? ")
-		sf("%s", &name1)
-		randCode := 100 + rand.Intn(900)
-		pl(name1, " your alloted code is ", randCode)
-		pl("please Enter your age: ")
-		sf("%d", &age)
-		pl("please Enter your Country: ")
-		sf("%s", &country)
+-- here you can setup the language serverlocal lsp_zero = require('lsp-zero')
 
-		detail := Detail{
-			Name:    name1,
-			Age:     age,
-			Country: country,
-			Code:    randCode,
-		}
+func main(){
+    var name1 string
+    var age int
+    var country string
+    var err error
+    
+      
 
-		files = append(files, detail)
-		pl("Here is Your Details sir..")
 
-		pl("Do you like to continue it ? (y/n)")
-		sf("%s", &response)
-		if response == "n" {
-			break
-		}
-		pl("Thank you so much")
 
-	}
-	pl("Here are your all details sir")
-	pl(files)
+    pl("Enter your detail here:")
+    pl("What is your name?")
+    if _, err = sf("%s", &name1); err != nil{
+        pl ("Error Reading name", err)
+        return
+    }
 
+
+    pl("What is your age?")
+    if _, err = sf("%d", &age); err != nil{
+        pl("Error Reading age", err)
+
+    }
+
+
+    pl("What is your Country Name:?")
+   if _, err = sf("%s", &country); err != nil{
+        pl("Error Reading country", err)
+    }
+
+
+
+
+       for i = 0 ; i < 3; i++ {
+         pl("Ok Your name is", name1, "of" , age , "from ",country)
+
+    }
 }
